@@ -1,0 +1,8 @@
+$taskName = "Task_name"
+$scriptPath = "C:\TASK\Script_Name.ps1"
+ 
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-ExecutionPolicy Bypass -File `"$scriptPath`""
+$trigger = New-ScheduledTaskTrigger -Daily -At 5:00AM
+$principal = New-ScheduledTaskPrincipal -UserId "$env:USERNAME" -LogonType S4U -RunLevel Highest
+ 
+Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Principal $principal -Description "Runs name of the script and running notes likes every day at 5:00 AM"
